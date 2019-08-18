@@ -1,5 +1,15 @@
 //  Listen for Submit
-document.getElementById('loan-form').addEventListener('submit', countingResults);
+document.getElementById('loan-form').addEventListener('submit', function(e){
+    // Hide results
+     document.getElementById('results').style.display = 'none';
+     
+    //  Show loader
+     document.getElementById('loading').style.display = 'block';
+
+     setTimeout(countingResults , 2000);
+
+    e.preventDefault();
+});
 
 // Counting Results
 function countingResults(e){
@@ -25,15 +35,25 @@ function countingResults(e){
         monthlyPayment.value = monthly.toFixed(2);
         totalPayment.value = (monthly * calculatePayments).toFixed(2);
         totalInterest.value = ((monthly * calculatePayments)-principal).toFixed(2);
+
+        // Show results
+        document.getElementById('results').style.display = 'block';
+
+        // Hide loader
+        document.getElementById('loading').style.display = 'none';
+
     } else {
         showError('please check your number')
     }
-
-    e.preventDefault();
 }
 
 // Show Error
 function showError(error){
+    // hide results
+    document.getElementById('results').style.display = 'none';
+
+    // Hide loader
+    document.getElementById('loading').style.display = 'none';
     // Create a div
     const errorDiv = document.createElement('div');
 
